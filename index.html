@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Сила Леса — три варианта нового сайта</title>
+<meta name="description" content="Концепт: первый экран и главный блок на ваших фото, с реальными ценами и свободными датами.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Сила Леса — три варианта нового сайта">
+<meta property="og:description" content="Карта парка, четыре стихии, гирлянда-календарь. На ваших фото и с реальными ценами.">
+<meta property="og:image" content="https://temataran.github.io/sila-lesa/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://temataran.github.io/sila-lesa/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="shared/foto/logo-olive.png">
+<link rel="stylesheet" href="shared/fonts/fonts.css">
+<style>
+  :root {
+    --paper: #f4f0e6; --ink: #2b2c1f; --olive: #5f6236; --dim: #77735f; --line: rgba(95, 98, 54, .2);
+    --serif: 'Alegreya', Georgia, serif; --sans: 'Alegreya Sans', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.5 var(--sans); -webkit-font-smoothing: antialiased; }
+  main { max-width: 1160px; margin: 0 auto; padding: 44px 24px 72px; }
+  .head { display: flex; align-items: center; gap: 14px; margin-bottom: 52px; }
+  .head img { width: 46px; height: 46px; }
+  .head span { font: 500 15px/1.2 'Alegreya Sans SC', var(--sans); letter-spacing: .08em; color: var(--olive); }
+  h1 { font: italic 500 clamp(36px, 5.4vw, 64px)/1.02 var(--serif); margin: 0 0 18px; letter-spacing: -.01em; }
+  .lead { max-width: 700px; margin: 0 0 12px; font-size: 19px; }
+  .note { max-width: 700px; margin: 0; color: var(--dim); font-size: 16px; }
+
+  .dir { display: grid; grid-template-columns: 1.55fr 1fr; gap: 44px; align-items: center; padding: 56px 0; border-top: 1px solid var(--line); text-decoration: none; color: inherit; }
+  .dir:first-of-type { margin-top: 48px; }
+  .pics { position: relative; padding-right: 13%; }
+  .pics .d { width: 100%; display: block; border-radius: 10px; box-shadow: 0 24px 50px -30px rgba(43, 44, 31, .55); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  .pics .m { position: absolute; right: 0; bottom: -22px; width: 23%; border-radius: 14px; border: 4px solid #1d1d1a; box-shadow: 0 18px 40px -18px rgba(0, 0, 0, .55); transition: transform .6s cubic-bezier(.2, .8, .2, 1); }
+  .dir:hover .d { transform: translateY(-4px); }
+  .dir:hover .m { transform: translateY(-10px); }
+  .num { font: 500 15px/1 'Alegreya Sans SC', var(--sans); letter-spacing: .1em; color: var(--olive); }
+  .dir h2 { font: italic 500 40px/1.05 var(--serif); margin: 8px 0 14px; }
+  .dir p { margin: 0 0 18px; }
+  .open { display: inline-block; padding: 12px 20px 13px; border-radius: 99px; background: var(--olive); color: var(--paper); font-weight: 500; font-size: 16px; }
+
+  .foot { border-top: 1px solid var(--line); padding-top: 26px; color: var(--dim); font-size: 15.5px; max-width: 760px; }
+  .foot b { color: var(--ink); font-weight: 500; }
+
+  @media (max-width: 760px) {
+    main { padding: 26px 18px 56px; }
+    .head { margin-bottom: 30px; }
+    .dir { grid-template-columns: 1fr; gap: 34px; padding: 38px 0 44px; }
+    .dir:first-of-type { margin-top: 30px; }
+    .dir h2 { font-size: 32px; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="head"><img src="shared/foto/logo-olive.png" alt=""><span>Сила Леса · концепт сайта</span></div>
+
+  <h1>Три варианта нового сайта</h1>
+  <p class="lead">Первый экран и&nbsp;главный блок&nbsp;— на&nbsp;ваших фотографиях, с&nbsp;реальными ценами и&nbsp;свободными датами из&nbsp;вашего календаря. Всё живое: можно нажимать, на&nbsp;телефоне тоже.</p>
+  <p class="note">Бронирование остаётся в&nbsp;Lite PMS&nbsp;— кнопки ведут в&nbsp;ваш календарь, ничего переносить не&nbsp;нужно. Цены и&nbsp;занятость сняты 4&nbsp;октября.</p>
+
+  <a class="dir" href="karta/">
+    <div class="pics"><img class="d" src="shared/preview/karta.jpg" alt=""><img class="m" src="shared/preview/karta-m.jpg" alt=""></div>
+    <div>
+      <div class="num">Вариант 1</div>
+      <h2>Карта парка</h2>
+      <p>Ваша схема парка становится главным экраном. Гость выбирает ночь и&nbsp;дом&nbsp;— от&nbsp;парковки прорисовывается дорожка, рядом карточка с&nbsp;ценой и&nbsp;свободными ночами на&nbsp;две недели. Переключатель «зима&nbsp;/&nbsp;лето»: зимой на&nbsp;месте пляжа каток.</p>
+      <span class="open">Открыть карту →</span>
+    </div>
+  </a>
+
+  <a class="dir" href="stihii/">
+    <div class="pics"><img class="d" src="shared/preview/stihii.jpg" alt=""><img class="m" src="shared/preview/stihii-m.jpg" alt=""></div>
+    <div>
+      <div class="num">Вариант 2</div>
+      <h2>Четыре стихии</h2>
+      <p>Дома Огонь, Земля, Вода и&nbsp;Воздух&nbsp;— четыре живые панели. Огонь мерцает и&nbsp;роняет искры, вода расходится кругами от&nbsp;курсора, над «Воздухом» идёт снег. Нажатие открывает дом: площадь, гости, удобства и&nbsp;цены на&nbsp;неделю.</p>
+      <span class="open">Открыть стихии →</span>
+    </div>
+  </a>
+
+  <a class="dir" href="girlyanda/">
+    <div class="pics"><img class="d" src="shared/preview/girlyanda.jpg" alt=""><img class="m" src="shared/preview/girlyanda-m.jpg" alt=""></div>
+    <div>
+      <div class="num">Вариант 3</div>
+      <h2>Гирлянда-календарь</h2>
+      <p>Гирлянда над костровищем&nbsp;— это календарь. Каждая лампочка&nbsp;— ночь: чем ярче горит, тем больше свободных домов, погасла&nbsp;— всё занято. Ниже&nbsp;— свободные дома на&nbsp;выбранную ночь с&nbsp;ценами.</p>
+      <span class="open">Открыть гирлянду →</span>
+    </div>
+  </a>
+
+  <p class="foot">Это концепт, сделан по&nbsp;собственной инициативе&nbsp;— чтобы показать идею. Остальные разделы (бани, шатры, мероприятия, вопросы, контакты) соберу в&nbsp;стиле того варианта, который понравится.</p>
+</main>
+</body>
+</html>

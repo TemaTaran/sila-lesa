@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../shared/foto/logo-olive.png">
+<title>Сила Леса — четыре стихии</title>
+<link rel="stylesheet" href="../shared/fonts/fonts.css">
+<link rel="stylesheet" href="stihii.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="water" x="-5%" y="-5%" width="110%" height="110%">
+    <feTurbulence id="water-noise" type="fractalNoise" baseFrequency=".006 .022" numOctaves="2" seed="3" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<header class="top">
+  <a class="brand" href="../"><img src="../shared/foto/logo-light.png" alt=""><span>Сила Леса</span></a>
+  <nav class="top__nav">
+    <a href="#">Дома и шатры</a><a href="#">Баня и чан</a><a href="#">Как добраться</a>
+  </nav>
+  <span class="concept">концепт</span>
+  <a class="top__tel" href="tel:+73433833600">+7 343 383-36-00</a>
+</header>
+
+<main class="elements" id="elements">
+  <div class="intro">
+    <h1>Четыре дома в&nbsp;лесу на&nbsp;Ельничной.<br><em>Какая стихия ваша?</em></h1>
+  </div>
+</main>
+
+<p class="more">Ещё шесть домов, десять летних шатров и&nbsp;две бани с&nbsp;чаном&nbsp;— <a href="#">все варианты</a></p>
+
+<section class="house" id="house" aria-hidden="true">
+  <div class="house__media"><img alt=""><canvas></canvas></div>
+  <div class="house__info">
+    <button class="house__close" aria-label="Назад ко всем стихиям">←&nbsp; все стихии</button>
+    <div class="house__word"></div>
+    <h2 class="house__name"></h2>
+    <p class="house__line"></p>
+    <dl class="house__facts"></dl>
+    <ul class="house__perks"></ul>
+    <div class="house__week-h">Ночи на этой неделе <span>цена на двоих</span></div>
+    <div class="house__week"></div>
+    <a class="house__cta" target="_blank" rel="noopener"></a>
+    <div class="house__nav"></div>
+  </div>
+</section>
+
+<script src="../shared/houses.js"></script>
+<script src="../shared/nights.js"></script>
+<script src="stihii.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../shared/foto/logo-olive.png">
+<title>Сила Леса — карта парка</title>
+<link rel="stylesheet" href="../shared/fonts/fonts.css">
+<link rel="stylesheet" href="karta.css">
+</head>
+<body data-season="winter">
+
+<svg id="map" aria-label="Схема парка «Сила Леса»"></svg>
+
+<aside class="legend" id="legend">
+  <div class="legend__grip" aria-hidden="true"></div>
+  <header class="legend__head">
+    <img class="legend__logo" src="../shared/foto/logo-olive.png" alt="">
+    <div>
+      <div class="legend__name">Сила Леса</div>
+      <div class="legend__sub">глэмпинг и парк отдыха</div>
+    </div>
+    <span class="concept">концепт</span>
+  </header>
+
+  <h1 class="legend__title">Десять домов в&nbsp;сосновом лесу на&nbsp;берегу Ельничной</h1>
+  <p class="legend__lead">35&nbsp;км от Екатеринбурга. Выберите ночь и&nbsp;дом на&nbsp;карте&nbsp;— покажем дорогу от&nbsp;парковки.</p>
+
+  <div class="nights" id="nights" role="listbox" aria-label="Ночь заезда"></div>
+
+  <ol class="houses" id="houses"></ol>
+
+  <footer class="legend__foot">
+    <a href="tel:+73433833600">+7 343 383-36-00</a>
+    <span>Пильный, Первоуральск</span>
+  </footer>
+</aside>
+
+<div class="season" role="group" aria-label="Время года на карте">
+  <button data-s="winter" aria-pressed="true">Зима</button>
+  <button data-s="summer" aria-pressed="false">Лето</button>
+</div>
+
+<article class="card" id="card" hidden>
+  <button class="card__close" aria-label="Закрыть">×</button>
+  <div class="card__photo"><img alt=""></div>
+  <div class="card__body">
+    <div class="card__num"></div>
+    <h2 class="card__name"></h2>
+    <p class="card__line"></p>
+    <p class="card__facts"></p>
+    <div class="card__strip" aria-label="Ближайшие ночи"></div>
+    <div class="card__buy">
+      <div class="card__price"></div>
+      <a class="card__btn" target="_blank" rel="noopener">Забронировать</a>
+    </div>
+  </div>
+</article>
+
+<script src="../shared/houses.js"></script>
+<script src="../shared/nights.js"></script>
+<script src="karta.js"></script>
+</body>
+</html>

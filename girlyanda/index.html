@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../shared/foto/logo-olive.png">
+<title>Сила Леса — свободные ночи</title>
+<link rel="stylesheet" href="../shared/fonts/fonts.css">
+<link rel="stylesheet" href="girlyanda.css">
+</head>
+<body>
+<div class="bg" aria-hidden="true"></div>
+
+<header class="top">
+  <a class="brand" href="../"><img src="../shared/foto/logo-light.png" alt=""><span>Сила Леса</span></a>
+  <span class="concept">концепт</span>
+  <a class="top__tel" href="tel:+73433833600">+7 343 383-36-00</a>
+</header>
+
+<div class="garland" id="garland">
+  <div class="garland__track" id="track">
+    <canvas id="bulbs"></canvas>
+    <div class="garland__days" id="days" role="listbox" aria-label="Ночь заезда"></div>
+  </div>
+</div>
+
+<main class="stage">
+  <section class="intro">
+    <h1>Когда приедете?</h1>
+    <p>Каждая лампочка&nbsp;— ночь. Чем ярче горит, тем больше свободных домов. Погасла&nbsp;— всё занято.</p>
+    <p class="intro__small">Глэмпинг в&nbsp;сосновом лесу на&nbsp;берегу Ельничной, 35&nbsp;км от&nbsp;Екатеринбурга. Десять домов, бани с&nbsp;чаном, каток зимой.</p>
+  </section>
+
+  <section class="night" id="night" aria-live="polite">
+    <div class="night__head">
+      <h2 class="night__title"></h2>
+      <div class="night__count"></div>
+    </div>
+    <ol class="night__list"></ol>
+    <p class="night__busy"></p>
+  </section>
+</main>
+
+<script src="../shared/houses.js"></script>
+<script src="../shared/nights.js"></script>
+<script src="girlyanda.js"></script>
+</body>
+</html>

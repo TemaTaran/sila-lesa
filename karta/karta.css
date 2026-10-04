@@ -1,0 +1,277 @@
+:root {
+  --paper: #f4f0e6;
+  --paper-2: #ece6d6;
+  --ink: #2f3120;
+  --olive: #5f6236;
+  --olive-2: #8a8c5c;
+  --brown: #8b6b4e;
+  --beige: #cdb891;
+  --water: #93c3dc;
+  --muted: #7a7865;
+  --line: rgba(95, 98, 54, .22);
+  --serif: 'Alegreya', Georgia, serif;
+  --sans: 'Alegreya Sans', system-ui, sans-serif;
+  --caps: 'Alegreya Sans SC', 'Alegreya Sans', sans-serif;
+  --legend-w: 400px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 17px/1.45 var(--sans);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+
+#map {
+  position: fixed; inset: 0;
+  width: 100%; height: 100%;
+  display: block;
+  touch-action: none;
+  user-select: none;
+}
+
+/* ---------- легенда: как на их бумажной схеме, слева на том же листе ---------- */
+.legend {
+  position: fixed; left: 0; top: 0; bottom: 0;
+  width: var(--legend-w);
+  padding: 36px 36px 28px 44px;
+  display: flex; flex-direction: column;
+  background: linear-gradient(90deg, var(--paper) 88%, rgba(244, 240, 230, 0));
+  z-index: 3;
+}
+.legend__grip { display: none; }
+.legend__head { display: flex; align-items: center; gap: 14px; }
+.legend__logo { width: 54px; height: 54px; }
+.legend__name { font: 500 26px/1 var(--caps); letter-spacing: .04em; color: var(--olive); }
+.legend__sub { font: 500 13px/1.2 var(--caps); letter-spacing: .08em; color: var(--olive-2); margin-top: 4px; }
+.concept {
+  margin-left: auto; align-self: flex-start;
+  font: 500 12px/1 var(--caps); letter-spacing: .08em;
+  color: var(--brown); border: 1px solid currentColor; border-radius: 99px; padding: 5px 9px 6px;
+}
+.legend__title {
+  font: italic 500 31px/1.12 var(--serif);
+  color: var(--ink);
+  margin: 34px 0 12px;
+  letter-spacing: -.005em;
+  text-wrap: balance;
+}
+.legend__lead { margin: 0 0 22px; color: var(--muted); font-size: 16.5px; }
+
+/* ночи — строка как подписи на схеме */
+.nights {
+  display: flex; gap: 6px;
+  overflow-x: auto; scrollbar-width: none;
+  margin: 0 -36px 18px -44px; padding: 2px 36px 4px 44px;
+  scroll-snap-type: x proximity;
+  scroll-padding-left: 44px;
+}
+.nights::-webkit-scrollbar { display: none; }
+.night {
+  flex: 0 0 auto;
+  min-width: 54px;
+  padding: 8px 6px 7px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  text-align: center;
+  scroll-snap-align: start;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.night b { display: block; font: 500 21px/1 var(--serif); }
+.night small { display: block; font: 500 12px/1.1 var(--caps); letter-spacing: .06em; color: var(--muted); margin-top: 3px; }
+.night i { display: block; font: 500 11.5px/1 var(--sans); font-style: normal; color: var(--olive-2); margin-top: 5px; white-space: nowrap; }
+.night.is-weekend small { color: var(--brown); }
+.night.is-full { color: var(--muted); }
+.night.is-full b { text-decoration: line-through; text-decoration-thickness: 1px; }
+.night[aria-selected="true"] { background: var(--olive); border-color: var(--olive); color: var(--paper); }
+.night[aria-selected="true"] small, .night[aria-selected="true"] i { color: rgba(244, 240, 230, .78); }
+
+/* список домов — как легенда схемы: номер в квадрате, имя, цена */
+.houses { list-style: none; margin: 0; padding: 0; flex: 1; overflow-y: auto; scrollbar-width: thin; }
+.houses li {
+  display: grid; grid-template-columns: 30px 1fr auto; align-items: baseline; gap: 12px;
+  padding: 7px 0;
+  border-top: 1px solid var(--line);
+  cursor: pointer;
+}
+.houses li:last-child { border-bottom: 1px solid var(--line); }
+.houses .n {
+  width: 24px; height: 24px; display: inline-grid; place-items: center;
+  border: 1.5px solid var(--olive); color: var(--olive);
+  font: 700 13px/1 var(--sans);
+  transform: translateY(2px);
+}
+.houses .t { font: 500 17px/1.25 var(--serif); }
+.houses .t em { font-style: normal; color: var(--muted); font: 14px var(--sans); margin-left: 6px; }
+.houses .p { font: 500 16px/1 var(--sans); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.houses li.is-busy .t, .houses li.is-busy .p { color: #a5a28f; }
+.houses li.is-busy .n { border-color: #b9b6a2; color: #a5a28f; }
+.houses li.is-busy .p { font-weight: 400; font-size: 14px; }
+.houses li:hover .t, .houses li.is-hot .t { color: var(--olive); }
+.houses li.is-on { background: linear-gradient(90deg, rgba(95, 98, 54, .09), transparent); }
+.houses li.is-on .n { background: var(--olive); color: var(--paper); }
+
+.legend__foot { display: flex; justify-content: space-between; gap: 12px; padding-top: 16px; font-size: 15px; color: var(--muted); }
+.legend__foot a { color: var(--ink); text-decoration: none; font-weight: 500; }
+
+/* ---------- переключатель сезона ---------- */
+.season {
+  position: fixed; top: 28px; right: 32px; z-index: 4;
+  display: flex; padding: 3px; border-radius: 99px;
+  background: rgba(244, 240, 230, .9); border: 1px solid var(--line);
+  backdrop-filter: blur(6px);
+}
+.season button {
+  border: 0; background: none; padding: 7px 16px 8px; border-radius: 99px;
+  font: 500 15px/1 var(--caps); letter-spacing: .06em; color: var(--muted);
+}
+.season button[aria-pressed="true"] { background: var(--olive); color: var(--paper); }
+
+/* ---------- карточка дома ---------- */
+.card {
+  position: fixed; z-index: 5;
+  width: 330px;
+  background: var(--paper);
+  border: 1px solid rgba(95, 98, 54, .35);
+  border-radius: 14px;
+  box-shadow: 0 18px 50px -18px rgba(47, 49, 32, .45), 0 2px 0 rgba(255, 255, 255, .6) inset;
+  overflow: hidden;
+  opacity: 0; transform: translateY(8px) scale(.98);
+  transition: opacity .35s ease, transform .45s cubic-bezier(.2, .8, .2, 1);
+  pointer-events: none;
+}
+.card.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.card[hidden] { display: block; }
+.card__close {
+  position: absolute; top: 10px; right: 10px; z-index: 2;
+  width: 32px; height: 32px; border-radius: 50%; border: 0;
+  background: rgba(244, 240, 230, .92); font-size: 20px; line-height: 1;
+}
+.card__photo { aspect-ratio: 16 / 9; overflow: hidden; background: var(--paper-2); }
+.card__photo img { width: 100%; height: 100%; object-fit: cover; display: block; transform: scale(1.04); transition: transform 1.2s ease; }
+.card.is-open .card__photo img { transform: none; }
+.card__body { padding: 14px 18px 18px; }
+.card__num { font: 500 12.5px/1 var(--caps); letter-spacing: .08em; color: var(--olive-2); }
+.card__name { font: italic 500 27px/1.05 var(--serif); margin: 6px 0 6px; color: var(--ink); }
+.card__line { margin: 0 0 6px; font-size: 15.5px; line-height: 1.35; }
+.card__facts { margin: 0 0 12px; font-size: 14px; color: var(--muted); }
+
+.card__strip { display: grid; grid-template-columns: repeat(14, 1fr); gap: 3px; margin-bottom: 14px; }
+.card__strip span {
+  height: 34px; border-radius: 4px; position: relative;
+  display: grid; place-items: end center; padding-bottom: 3px;
+  font: 500 10.5px/1 var(--sans); color: var(--muted);
+  background: rgba(95, 98, 54, .12);
+}
+.card__strip span.free { background: rgba(95, 98, 54, .78); color: var(--paper); }
+.card__strip span.busy {
+  background: repeating-linear-gradient(135deg, rgba(122, 120, 101, .18) 0 3px, transparent 3px 6px);
+}
+.card__strip span.sel { outline: 2px solid var(--brown); outline-offset: 1px; }
+
+.card__buy { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.card__price { font: 500 22px/1.1 var(--serif); }
+.card__price small { display: block; font: 13px var(--sans); color: var(--muted); }
+.card__price.is-busy { font-size: 16px; color: var(--muted); }
+.card__btn {
+  display: inline-block; padding: 12px 18px 13px; border-radius: 99px;
+  background: var(--olive); color: var(--paper); text-decoration: none;
+  font: 500 15px/1 var(--sans); white-space: nowrap;
+}
+.card__btn.is-off { background: transparent; color: var(--olive); border: 1px solid var(--olive); }
+
+/* ---------- элементы карты ---------- */
+.road { fill: none; stroke: var(--olive); stroke-width: 3; stroke-dasharray: 9 8; stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
+.route { fill: none; stroke: var(--brown); stroke-width: 4.5; stroke-linecap: round; stroke-linejoin: round; }
+.walker { fill: var(--brown); stroke: var(--paper); stroke-width: 2.5; }
+.tree path { fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.wave { fill: none; stroke: var(--water); stroke-width: 2.6; stroke-linecap: round; }
+.lbl { font: 500 11.5px var(--caps); letter-spacing: .05em; fill: var(--ink); }
+.lbl--sm { font-size: 10.5px; fill: var(--muted); }
+.ico { fill: none; stroke: var(--ink); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+.house { cursor: pointer; }
+.house .body { fill: var(--paper); stroke: var(--olive); stroke-width: 2; }
+.house .roof { fill: var(--paper); stroke: var(--olive); stroke-width: 2; stroke-linejoin: round; }
+.house .logs { stroke: var(--olive); stroke-width: 1.4; }
+.house .num { font: 700 15px var(--sans); fill: var(--olive); text-anchor: middle; }
+.house .tag { font: 500 11px var(--caps); letter-spacing: .04em; fill: var(--ink); text-anchor: middle; }
+.house .hit { fill: transparent; }
+.house .pin { opacity: 0; }
+.house .lift { transition: transform .35s cubic-bezier(.2, .9, .3, 1.4); transform-box: fill-box; transform-origin: 50% 100%; }
+.house:hover .lift, .house.is-hot .lift { transform: translateY(-4px) scale(1.06); }
+.house.is-busy .body, .house.is-busy .roof { stroke: #aaa792; }
+.house.is-busy .num, .house.is-busy .logs { fill: #aaa792; stroke: #aaa792; }
+.house.is-busy .num { stroke: none; }
+.house.is-free .roof { fill: rgba(95, 98, 54, .14); }
+.house.is-on .lift { transform: translateY(-7px) scale(1.14); }
+.house.is-on .body, .house.is-on .roof { fill: var(--olive); stroke: var(--olive); }
+.house.is-on .num { fill: var(--paper); }
+.house.is-on .logs { stroke: rgba(244, 240, 230, .5); }
+.house .price {
+  font: 500 11.5px var(--sans); text-anchor: middle; fill: var(--olive);
+  font-variant-numeric: tabular-nums;
+}
+.house.is-busy .price { fill: #aaa792; }
+
+.tent .roof { stroke: var(--ink); stroke-width: 1.4; stroke-linejoin: round; }
+.tent .body { fill: var(--paper); stroke: var(--ink); stroke-width: 1.4; }
+.tent text { font: 700 10px var(--sans); text-anchor: middle; fill: var(--ink); }
+body[data-season="winter"] .tent { opacity: .38; }
+body[data-season="winter"] .summer-only { opacity: 0; }
+body[data-season="summer"] .winter-only { opacity: 0; }
+.summer-only, .winter-only, .tent { transition: opacity .6s ease; }
+.ice { stroke: #c4dce8; stroke-width: 2.4; stroke-linecap: round; fill: none; }
+.snowcap { fill: #fff; }
+
+@keyframes drift { from { transform: translateX(0); } to { transform: translateX(-24px); } }
+body[data-season="summer"] .waves-anim { animation: drift 5s linear infinite alternate; }
+
+/* ---------- телефон ---------- */
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .legend {
+    top: auto; width: auto; right: 0;
+    height: 46vh; height: 46svh;
+    padding: 10px 18px 14px;
+    background: var(--paper);
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -10px 30px -12px rgba(47, 49, 32, .35);
+  }
+  .legend__grip { display: block; width: 40px; height: 4px; border-radius: 4px; background: var(--line); margin: 0 auto 10px; }
+  .legend__head { display: none; }
+  .legend__title { font-size: 22px; margin: 0 0 4px; }
+  .legend__lead { font-size: 14.5px; margin-bottom: 12px; }
+  .nights { margin: 0 -18px 10px; padding: 2px 18px 4px; }
+  .houses li { padding: 8px 0; }
+  .legend__foot { display: none; }
+  .season { top: auto; bottom: calc(46svh + 12px); right: 14px; }
+  .season button { padding: 6px 12px 7px; font-size: 14px; }
+  .card {
+    left: 10px !important; right: 10px; top: auto !important; bottom: 10px;
+    width: auto;
+    display: grid; grid-template-columns: 38% 1fr;
+  }
+  .card__photo { aspect-ratio: auto; height: 100%; }
+  .card__body { padding: 12px 14px 14px; }
+  .card__name { font-size: 22px; }
+  .card__line { display: none; }
+  .card__facts { font-size: 13px; margin-bottom: 8px; }
+  .card__strip { grid-template-columns: repeat(7, 1fr); }
+  .card__strip span:nth-child(n+8) { display: none; }
+  .card__strip span { height: 28px; }
+  .card__price { font-size: 18px; }
+  .card__btn { padding: 10px 14px 11px; font-size: 14px; }
+  .m-head {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 4;
+    display: flex; align-items: center; gap: 10px; padding: 12px 16px;
+    background: linear-gradient(var(--paper) 60%, rgba(244, 240, 230, 0));
+  }
+}
+@media (min-width: 761px) { .m-head { display: none; } }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

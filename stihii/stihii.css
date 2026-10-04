@@ -1,0 +1,228 @@
+:root {
+  --bg: #11100e;
+  --ink: #f2ecdf;
+  --dim: rgba(242, 236, 223, .62);
+  --line: rgba(242, 236, 223, .18);
+  --display: 'Forum', 'Times New Roman', serif;
+  --sans: 'Golos Text', system-ui, sans-serif;
+  --acc: #f08a4b;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg); color: var(--ink);
+  font: 16px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; }
+
+/* ---------- шапка ---------- */
+.top {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  display: flex; align-items: center; gap: 28px;
+  padding: 22px 32px;
+  pointer-events: none;
+}
+.top > * { pointer-events: auto; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand img { width: 40px; height: 40px; }
+.brand span { font: 22px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; }
+.top__nav { display: flex; gap: 26px; margin-left: 24px; }
+.top__nav a { text-decoration: none; font-size: 15px; color: var(--dim); transition: color .2s; }
+.top__nav a:hover { color: var(--ink); }
+.concept { margin-left: auto; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 99px; padding: 4px 10px; color: var(--dim); }
+.top__tel { text-decoration: none; font-weight: 500; }
+
+/* ---------- четыре панели ---------- */
+.elements {
+  position: fixed; inset: 0;
+  display: flex;
+}
+.intro {
+  position: absolute; left: 32px; top: 104px; z-index: 6;
+  pointer-events: none;
+  max-width: 640px;
+}
+.intro h1 {
+  margin: 0;
+  font: 400 46px/1.08 var(--display);
+  letter-spacing: .005em;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, .35);
+}
+.intro h1 em { font-style: normal; color: var(--dim); }
+
+.el {
+  container-type: inline-size;
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: flex-grow .9s cubic-bezier(.2, .8, .2, 1);
+  border-left: 1px solid rgba(0, 0, 0, .5);
+  outline: none;
+}
+.el:first-child { border-left: 0; }
+.elements.is-hover .el { flex-grow: .8; }
+.elements.is-hover .el.is-hot { flex-grow: 2.1; }
+.el__img {
+  position: absolute; inset: -3%;
+  width: 106%; height: 106%;
+  object-fit: cover;
+  transition: transform 1.4s cubic-bezier(.2, .8, .2, 1), filter .9s;
+  filter: saturate(.85) brightness(.82);
+}
+.el.is-hot .el__img { filter: saturate(1) brightness(.95); }
+.el canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.el::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(10, 9, 8, .55) 0%, rgba(10, 9, 8, 0) 34%),
+    linear-gradient(0deg, rgba(10, 9, 8, .82) 0%, rgba(10, 9, 8, 0) 46%);
+}
+.el__text {
+  position: absolute; left: 28px; right: 24px; bottom: 30px; z-index: 3;
+}
+.el__word {
+  font: 400 clamp(30px, min(6.2vw, calc((100cqi - 52px) / var(--k, 3.4))), 96px)/.9 var(--display);
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color .6s;
+}
+.el.is-hot .el__word { color: var(--acc); }
+.el__meta {
+  font-size: 14.5px; color: var(--dim); margin-top: 12px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.el__more {
+  display: grid; grid-template-rows: 0fr;
+  transition: grid-template-rows .7s cubic-bezier(.2, .8, .2, 1), opacity .5s;
+  opacity: 0;
+}
+.el__more > div { overflow: hidden; }
+.el.is-hot .el__more { grid-template-rows: 1fr; opacity: 1; }
+.el__line { font-size: 17px; line-height: 1.4; max-width: 380px; margin: 12px 0 14px; color: var(--ink); }
+.el__go { display: inline-flex; gap: 10px; align-items: center; font-weight: 500; font-size: 15px; border-bottom: 1px solid var(--acc); padding-bottom: 3px; }
+
+/* у «Воздуха» подпись наверху — дом поднят на шесть метров */
+.el[data-id="vozduh"] .el__text { bottom: auto; top: 104px; }
+.el[data-id="vozduh"]::after {
+  background:
+    linear-gradient(180deg, rgba(10, 9, 8, .75) 0%, rgba(10, 9, 8, 0) 50%),
+    linear-gradient(0deg, rgba(10, 9, 8, .35) 0%, rgba(10, 9, 8, 0) 30%);
+}
+.el[data-id="vozduh"] .el__img { object-position: 72% 50%; }
+.el[data-id="voda"] .el__img { filter: saturate(.85) brightness(.82) url(#water); }
+.el[data-id="voda"].is-hot .el__img { filter: saturate(1) brightness(.95) url(#water); }
+
+.more {
+  position: fixed; right: 28px; bottom: 30px; z-index: 6; margin: 0;
+  width: min(300px, calc(25vw - 56px)); text-align: left;
+  font-size: 14.5px; line-height: 1.45; color: var(--dim);
+  pointer-events: auto;
+}
+.more a { color: var(--ink); }
+.elements.is-hover ~ .more { opacity: 0; transition: opacity .3s; }
+
+/* ---------- дом крупно ---------- */
+.house {
+  position: fixed; inset: 0; z-index: 20;
+  display: grid; grid-template-columns: 1.15fr 1fr;
+  background: var(--hbg, #1a1410);
+  clip-path: inset(0 0 0 100%);
+  transition: clip-path 1s cubic-bezier(.7, 0, .2, 1);
+}
+.house.is-open { clip-path: inset(0 0 0 0); }
+.house__media { position: relative; overflow: hidden; }
+.house__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scale(1.08); transition: transform 1.6s cubic-bezier(.2, .8, .2, 1); }
+.house.is-open .house__media img { transform: scale(1); }
+.house__media canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.house[data-id="voda"] .house__media img { filter: url(#water); }
+.house[data-id="vozduh"] .house__media img { object-position: 70% 50%; }
+.house__info {
+  padding: 96px 64px 40px 56px;
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+}
+.house__close { align-self: flex-start; color: var(--dim); font-size: 14.5px; padding: 0; margin-bottom: 26px; }
+.house__close:hover { color: var(--ink); }
+.house__word { font: 400 clamp(64px, 7.6vw, 124px)/.86 var(--display); text-transform: uppercase; color: var(--acc); letter-spacing: .01em; }
+.house__name { font: 500 15px/1.3 var(--sans); letter-spacing: .06em; text-transform: uppercase; color: var(--dim); margin: 18px 0 10px; }
+.house__line { font: 400 25px/1.3 var(--display); margin: 0 0 24px; max-width: 520px; }
+.house__facts { display: flex; gap: 34px; margin: 0 0 18px; padding: 16px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.house__facts div { display: flex; flex-direction: column; gap: 2px; }
+.house__facts dt { font-size: 13px; color: var(--dim); }
+.house__facts dd { margin: 0; font-size: 17px; font-weight: 500; }
+.house__perks { list-style: none; padding: 0; margin: 0 0 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.house__perks li { font-size: 14.5px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 99px; }
+.house__week-h { font-size: 13.5px; color: var(--dim); margin-bottom: 8px; display: flex; justify-content: space-between; }
+.house__week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin-bottom: 20px; }
+.house__week button {
+  padding: 10px 4px 9px; border-radius: 10px; text-align: center;
+  border: 1px solid var(--line);
+  transition: border-color .2s, background .2s;
+}
+.house__week button b { display: block; font: 400 24px/1 var(--display); }
+.house__week button small { display: block; font-size: 12px; color: var(--dim); margin-top: 2px; }
+.house__week button i { display: block; font-style: normal; font-size: 12.5px; font-weight: 500; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.house__week button.busy { opacity: .38; cursor: default; }
+.house__week button.busy i { font-weight: 400; }
+.house__week button.sel { border-color: var(--acc); background: color-mix(in srgb, var(--acc) 16%, transparent); }
+.house__cta {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 22px; border-radius: 14px;
+  background: var(--acc); color: #15110d; text-decoration: none;
+  font-weight: 600; font-size: 16.5px;
+}
+.house__cta span:last-child { white-space: nowrap; margin-left: 18px; }
+.house__cta.is-off { background: transparent; color: var(--dim); border: 1px solid var(--line); font-weight: 400; }
+.house__nav { display: flex; gap: 22px; margin-top: auto; padding-top: 26px; }
+.house__nav button { font: 400 22px/1 var(--display); text-transform: uppercase; letter-spacing: .04em; color: var(--dim); padding: 0; }
+.house__nav button:hover { color: var(--ink); }
+.house__nav button[aria-current="true"] { color: var(--acc); }
+
+/* ---------- телефон: полосы вместо колонок ---------- */
+@media (max-width: 760px) {
+  .top { padding: 14px 16px; gap: 12px; }
+  .top__nav, .top__tel { display: none; }
+  .brand span { font-size: 18px; }
+  .brand img { width: 32px; height: 32px; }
+  .elements { flex-direction: column; top: 0; }
+  .intro { left: 16px; right: 16px; top: 66px; }
+  .intro h1 { font-size: 25px; }
+  .el { border-left: 0; border-top: 1px solid rgba(0, 0, 0, .5); }
+  .el:first-child { flex-grow: 1.85; }
+  .m-long { display: none; }
+  .el__text { left: 16px; right: 16px; bottom: 14px; display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .el__word { font-size: 46px; }
+  .el__meta { font-size: 14px; color: var(--ink); }
+  .el__meta { margin: 0; font-size: 13px; text-align: right; }
+  .el__more { display: none; }
+  .el[data-id="vozduh"] .el__text { top: auto; bottom: 14px; }
+  .el::after { background: linear-gradient(0deg, rgba(10, 9, 8, .78) 0%, rgba(10, 9, 8, 0) 70%); }
+  .el:first-child::after { background: linear-gradient(180deg, rgba(10, 9, 8, .7) 0%, rgba(10, 9, 8, 0) 45%), linear-gradient(0deg, rgba(10, 9, 8, .78) 0%, rgba(10, 9, 8, 0) 45%); }
+  .elements.is-hover .el, .elements.is-hover .el.is-hot { flex-grow: 1; }
+  .elements.is-hover .el:first-child { flex-grow: 1.85; }
+  .more { display: none; }
+  .house { grid-template-columns: 1fr; grid-template-rows: 38svh 1fr; clip-path: inset(100% 0 0 0); }
+  .house.is-open { clip-path: inset(0 0 0 0); }
+  .house__info { padding: 18px 18px 22px; }
+  .house__close { position: absolute; top: 14px; left: 14px; z-index: 3; background: rgba(0, 0, 0, .45); color: var(--ink); padding: 8px 12px; border-radius: 99px; backdrop-filter: blur(6px); }
+  .house__word { font-size: 64px; }
+  .house__name { margin: 10px 0 6px; font-size: 13px; }
+  .house__line { font-size: 20px; margin-bottom: 14px; }
+  .house__facts { gap: 18px; padding: 10px 0; margin-bottom: 12px; }
+  .house__facts dd { font-size: 15px; }
+  .house__perks { margin-bottom: 16px; }
+  .house__perks li { font-size: 13px; padding: 4px 10px; }
+  .house__week { gap: 4px; }
+  .house__week button { padding: 8px 2px 7px; }
+  .house__week button b { font-size: 20px; }
+  .house__week button i { font-size: 11px; }
+  .house__cta { padding: 15px 18px; font-size: 15.5px; }
+  .house__nav { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
